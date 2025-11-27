@@ -1,0 +1,142 @@
+{
+  "name": "Thực hành 01",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -144,
+        0
+      ],
+      "id": "4f47cfcd-f3e4-4c75-ad72-b1f831d695be",
+      "name": "When chat message received",
+      "webhookId": "dfdfe6c3-6bdb-43c9-a666-30ee79895841"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "bạn là 1 người máy hiểu biết tất cả mọi thứ những gì tôi hỏi bạn , bạn đều trả lời 1 cách nhanh chóng và chính xác bạn giúp tôi mọi việc trên đời"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        64,
+        0
+      ],
+      "id": "29ba3675-86bf-4e6c-b1ea-4c1a057f7b93",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        208
+      ],
+      "id": "56165964-d948-4470-8079-f79152b6f072",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "9I5ZV1cmUwSet6gJ",
+          "name": "Google Gemini(PaLM) Api account 3"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        80,
+        208
+      ],
+      "id": "5c707096-5bff-4aff-a653-e8c98d222162",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "documentURL": "https://docs.google.com/document/d/1DRWn_-7jtyE_W1sP7_pS0yaJgQWv6IFGzYeIr54ANIQ/edit?tab=t.0#heading=h.tqzbz3g6l5q4"
+      },
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2,
+      "position": [
+        224,
+        208
+      ],
+      "id": "f29f37d3-1eb9-4908-a21b-c0a7da54a3fa",
+      "name": "Get a document in Google Docs",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "ARYnhW8GxQIUMvEe",
+          "name": "Google Docs account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a document in Google Docs": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1532fc89-801f-4f6a-9d8f-bc38125f68e4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2cb8747efe38759043259c072b51a9fa0e921e6c6b03924f27add68132a5c2d6"
+  },
+  "id": "uNrXNuZ9oWI1NXSe",
+  "tags": []
+}
