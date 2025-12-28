@@ -1,2 +1,2 @@
 # Automation 
-learn AI chatbot
+learn Automation
